@@ -4,7 +4,7 @@ import RootLayout from '@/components/global/layout/RootLayout'
 const Pengajuan = () => {
   return (
     <RootLayout>
-        <div>
+        <div className='grid gap-8'>
           <h2 className="text-center text-2xl"><b>VERIFIKASI TRANSAKSI SERTIFIKAT</b></h2>
           <div className='container mx-auto w-[60rem] h-[20rem] bg-blue-200 p-4'>
             <div>
@@ -26,7 +26,7 @@ const Pengajuan = () => {
                     <td>Shazia</td>
                     <td>08-12-2024</td>
                     <td></td>
-                    <td><button><a href='/user/detail'>LIHAT DETAIL</a></button></td>
+                    <td><button className='bg-blue-700 rounded-2xl px-4 py-2'><a href='/user/detail'>LIHAT DETAIL</a></button></td>
                   </tr>
                 </tbody>
               </table>
