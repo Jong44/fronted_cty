@@ -1,6 +1,20 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const Register = () => {
+  const router = useRouter()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const email = e.target.email.value
+    const password = e.target.password.value
+
+    if (!email || !password) {
+      alert('Email dan password harus diisi')
+      return
+    }
+
+    router.push('/user/dashboard')
+  }
   return (
     <div className="flex h-screen">
       <div className="flex-initial w-2/5 bg-blue-500">
@@ -12,7 +26,7 @@ const Register = () => {
       <div className="flex-initial w-3/5 bg-gray-100 p-4">
         <div className="h-full flex flex-col justify-center items-center">
           <p className="text-3xl text-center mb-4"><b>Selamat Datang Bos!</b></p>
-          <form className='block justify-center'>
+          <form className='block justify-center' onSubmit={handleSubmit}>
             <div>
               <label className="block">Email</label>
               <input
