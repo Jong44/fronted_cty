@@ -7,6 +7,9 @@ const Index = () => {
       <div>
         <Image src="/assets/logo.svg" alt="logo" width={120} height={120} />
       </div>
+      <div>
+        
+      </div>
     </header>
   )
 }

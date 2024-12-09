@@ -33,6 +33,7 @@ const Register = () => {
                 className="w-[40rem] p-2 mt-2 border border-gray-300 rounded"
               />
             </div>
+            <p className='flex justify-end text-blue-700'>Belum punya akun? <a href="/auth/register">Daftar di sini</a></p>
             <button
               type="submit"
               className="mt-4 w-[40rem] p-2 bg-blue-500 text-white rounded"
