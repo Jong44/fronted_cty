@@ -28,7 +28,8 @@ const Pengajuan = () => {
         </div>
         <div className='flex flex-col gap-3 w-full p-2'>
           <label for="alm">Alamat</label>
-          <input className="border border-black rounded-lg outline-none p-2" type="text" id="alm" name="alm"/>
+          <textarea className="border border-black rounded-lg outline-none p-2 h-24" type="text" id="alm" name="alm">
+          </textarea>
         </div>
         <div className='flex flex-col gap-3 p-2'>
           <label for="notelp">File Sertifikat</label>
