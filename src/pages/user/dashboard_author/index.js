@@ -1,12 +1,13 @@
 import React from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
+import Dashboard from '../dashboard'
 
-const Pengajuan = () => {
+const DashboardAuthor = () => {
   return (
     <RootLayout>
         <div className='grid gap-8'>
           <h2 className="text-center text-2xl"><b>VERIFIKASI TRANSAKSI SERTIFIKAT</b></h2>
-          <div className='container mx-auto w-[60rem] h-[20rem] bg-blue-200 p-4'>
+          <div className='container mx-auto w-[60rem] h-[20rem] rounded-3xl bg-blue-200 p-4'>
             <div>
               <table className='table-auto w-full border-collapse'>
                 <thead>
@@ -37,4 +38,4 @@ const Pengajuan = () => {
   )
 }
 
-export default Pengajuan
+export default DashboardAuthor

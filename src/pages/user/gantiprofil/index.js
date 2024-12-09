@@ -12,9 +12,6 @@ const Pengaturan = () => {
             className="w-20 h-20 rounded-full mx-auto"
           />
           <h3 className="text-lg mt-2 underline"><b>Shazia Mirza</b></h3>
-          <button className="mt-1 px-3 py-1 bg-blue-600 text-white rounded-full text-xs">
-            <a href="/user/gantiprofil">Change Profile</a>
-          </button>
         </div>
 
         <h4 className="text-left mb-3"><b>Personal Information</b></h4>
@@ -23,65 +20,61 @@ const Pengaturan = () => {
             <label className="block text-xs mb-1"><b>First Name</b></label>
             <input
               type="text"
-              value="Shazia"
+              placeholder='Shazia'
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>Last Name</b></label>
             <input
               type="text"
-              value="Mirza"
+              placeholder="Mirza"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>Email</b></label>
             <input
               type="email"
-              value="shazi******@gmail.com"
+              placeholder="shaziamirza@gmail.com"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>Alamat</b></label>
             <input
               type="text"
-              value="***********"
+              placeholder="Jl. Hasanuddin 10, Jakarta Barat"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>No Telepon Aktif</b></label>
             <input
               type="text"
-              value="08xxxxxxxxx"
+              placeholder="08xxxxxxxxx"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>Private Key</b></label>
             <input
               type="text"
-              value="Private Key"
+              placeholder="Private Key"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
           <div>
             <label className="block text-xs mb-1"><b>Public Key</b></label>
             <input
               type="text"
-              value="Public Key"
+              placeholder="Public Key"
               className="w-full p-1 border border-gray-300 rounded-md text-sm"
-              readOnly
             />
           </div>
+          <button className="mt-1 px-3 py-1 bg-blue-600 text-white rounded-full text-xs w-2/5 mx-auto">
+            <a href="/user/gantiprofil">Selesai</a>
+          </button>
         </div>
       </div>
     </RootLayout>
