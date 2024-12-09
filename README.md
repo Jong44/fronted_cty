@@ -1,40 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌟 C-Ty Frontend - Certificate Encryption Application
 
-## Getting Started
+C-Ty Frontend adalah aplikasi yang berfungsi sebagai antarmuka pengguna untuk aplikasi backend C-Ty yang bertujuan untuk mengenkripsi sertifikat. Aplikasi ini dibangun dengan menggunakan **Next.js** dan dirancang untuk memberikan pengalaman pengguna yang responsif dan aman dalam mengelola sertifikat.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack
+Proyek ini menggunakan teknologi berikut:
+- **⚡ Next.js**: Framework React untuk membangun aplikasi frontend dengan server-side rendering.
+- **💾 React**: Library JavaScript untuk membangun antarmuka pengguna.
+- **📦 Axios**: Digunakan untuk komunikasi dengan backend API.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 👨‍💻 Tim Pengembang
+Tim ini dinamakan **C-Block**, terdiri dari:
+- **🧑‍💻 Irgi** - Frontend Developer
+- **🧑‍💻 Shaziaa** - Frontend Developer
+- **🧑‍💻 Tabitha** - Frontend Developer
+- **🧑‍💻 Labib** - Frontend Developer
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## ✨ Fitur Utama
+1. 🖥️ **User Interface**: Antarmuka pengguna yang mudah digunakan untuk mengunggah, melihat, dan menghapus sertifikat.
+2. 🔒 **Enkripsi Sertifikat**: Mendukung fitur untuk mengenkripsi sertifikat dengan menggunakan backend C-Ty.
+3. 📡 **Integrasi dengan Backend**: Berkomunikasi dengan backend API C-Ty untuk pengelolaan sertifikat.
+4. 🌐 **Responsif**: Antarmuka yang responsif untuk berbagai perangkat, baik desktop maupun mobile.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## 🚀 Instalasi dan Setup
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal:
 
-To learn more about Next.js, take a look at the following resources:
+### 📋 Prasyarat
+Pastikan Anda telah menginstal:
+- **Node.js** (versi terbaru)
+- **npm**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ⚙️ Langkah Instalasi
+1. Clone repositori:
+   ```bash
+   git clone https://github.com/Jong44/fronted_cty.git
+   cd fronted_cty
+2. Instal dependencies:
+   ```bash
+   npm install
+3. Jalankan server:
+    ```bash
+   npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+🔗 Backend Repository
+Anda dapat mengakses repositori backend C-Ty di sini:
+👉 [Backend C-Ty Repository](https://github.com/Jong44/backend-cty)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
