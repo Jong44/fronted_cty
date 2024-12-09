@@ -4,6 +4,7 @@ import RootLayout from '@/components/global/layout/RootLayout'
 const Pengajuan = () => {
   return (
     <RootLayout>
+      <div className='px-10 py-5'>
       <h1 className='	text-center mb-5 text-3xl'><b>PERMOHONAN KEAMANAN SERTIFIKAT</b></h1>
       <form>
         <div className='flex w-full gap-10'>
@@ -43,6 +44,7 @@ const Pengajuan = () => {
         <button type="submit" className='p-4 bg-blue-500 flex justify-self-end items-end rounded-3xl text-white px-6 py-2' ><b>SUBMIT</b></button>
         </div>
       </form>
+      </div>
     </RootLayout>
   )
 }
