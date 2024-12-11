@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Index = ({ children }) => {
+const Index = () => {
   const router = useRouter();
 
   const menuData = [
@@ -71,7 +71,7 @@ const Index = ({ children }) => {
                 </Link>
               ))}
             </div>
-            <div className="flex items-center gap-3 px-5 py-4 bg-primary cursor-pointer hover:bg-blue-700">
+            <div className="flex items-center gap-3 px-5 py-4 bg-primary cursor-pointer hover:bg-red-500">
               <Image
                 src="/assets/icons/logout.svg"
                 alt="Logout Icon"
@@ -81,8 +81,71 @@ const Index = ({ children }) => {
               <span>Keluar</span>
             </div>
           </aside>
-          <main className="flex-1 bg-gray-100 p-4">
-            {children}
+
+          <main className="flex-1 bg-gray-100 p-6">
+            <h4 className="text-left mb-6 font-bold text-lg">Personal Information</h4>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-semibold mb-1">First Name</label>
+                <input
+                  type="text"
+                  placeholder="Shazia"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">Last Name</label>
+                <input
+                  type="text"
+                  placeholder="Mirza"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">Email</label>
+                <input
+                  type="email"
+                  placeholder="shazia@gmail.com"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">Alamat</label>
+                <input
+                  type="text"
+                  placeholder="Jl. Hasanuddin, Jakarta Raya"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">No Telepon Aktif</label>
+                <input
+                  type="text"
+                  placeholder="08123456789"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">Private Key</label>
+                <input
+                  type="text"
+                  placeholder="Private Key"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">Public Key</label>
+                <input
+                  type="text"
+                  placeholder="Public Key"
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+            </div>
+            <div className="mt-6 flex gap-4">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">Update</button>
+              <button className="px-4 py-2 bg-red-500 text-black-700 rounded-md text-sm hover:bg-red-600">Cancel</button>
+            </div>
           </main>
         </div>
       </div>
