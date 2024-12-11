@@ -22,7 +22,7 @@
             <div className='flex w-full gap-10'>
                 <div className='flex flex-col gap-3 w-full p-2'>
                 <label><b>Nama Lengkap:</b></label>
-                <p>{formData.name}</p>
+                <h5>{formData.name}</h5>
                 </div>
                 <div className='flex flex-col gap-3 w-full p-2'>
                 <label><b>Email:</b></label>
@@ -32,7 +32,7 @@
             <div className='flex w-full gap-10'>
                 <div className='flex flex-col gap-3 w-full p-2'>
                 <label><b>Nomor Telepon:</b></label>
-                <p>{formData.notelp}</p>
+                <h5>{formData.notelp}</h5>
                 </div>
                 <div className='flex flex-col gap-3 w-full p-2'>
                 <label><b>NIK:</b></label>
@@ -41,7 +41,7 @@
             </div>
             <div className='flex flex-col gap-3 w-full p-2'>
                 <label><b>Alamat:</b></label>
-                <p>{formData.alm}</p>
+                <h5>{formData.alm}</h5>
             </div>
             <div className='flex w-full gap-10'>
                 <div className='flex flex-col gap-3 w-full p-2'>
