@@ -3,31 +3,22 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import * as Yup from 'yup'
 
-const Register = () => {
+const Login = () => {
   const router = useRouter()
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
+    password: ''
   })
-  const [errors, setErrors] = useState()
 
   const schema = Yup.object().shape({
     email: Yup.string().email().required(),
     password: Yup.string().required(),
   })
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-
-
   const handleSubmit = async () => {
     router.push('/user/dashboard')
   }
+
   return (
     <div className="flex h-screen">
       <div className="flex-initial w-2/5 bg-blue-500">
@@ -46,7 +37,7 @@ const Register = () => {
           >
             {({ isSubmitting }) => (
             <Form>
-              <div>
+            <div>
               <label className="block">Email</label>
               <div className='flex flex-col'>
               <Field
@@ -74,7 +65,6 @@ const Register = () => {
             >
               Login
             </button>
-
             </Form>  
             )}
           </Formik>
@@ -84,4 +74,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Login
