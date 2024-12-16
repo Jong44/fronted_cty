@@ -55,7 +55,7 @@ const Index = () => {
   ];
 
   return (
-    <aside className="w-[15rem] bg-primary text-white flex flex-col justify-between">
+    <aside className="w-[15rem] bg-primary text-white flex flex-col justify-between fixed top-[6.3rem] bottom-0 left-0 z-10">
       <div>
         {menuData.map((menu, index) => (
           <Link href={menu.link} key={index}>

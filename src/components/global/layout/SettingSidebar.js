@@ -25,7 +25,7 @@ const Index = () => {
   ];
 
   return (
-    <aside className="w-[15rem] bg-primary text-white flex flex-col justify-between h-full">
+    <aside className="w-[15rem] bg-primary text-white flex flex-col justify-between fixed top-[6.3rem] bottom-0 left-0 z-10">
       <div className="text-center py-6">
         <Image
           src="/assets/icons/DINO.jpeg"

@@ -13,11 +13,11 @@ const Index = ({children}) => {
       <Head>
         <title>User</title>
       </Head>
-      <div className="overflow-y-hidden">
+      <div className="">
         <Header/>
-        <div className="flex h-[88vh]">
+        <div className="flex">
           {router.pathname.includes('pengaturan') ? <SettingSidebar /> : <Sidebar />}
-          <main className="flex-1 bg-background p-4">
+          <main className="flex-1 bg-background p-4 fixed top-[6.3rem] bottom-0 left-[15rem] right-0 overflow-y-auto">
             {children}
           </main>
         </div>
