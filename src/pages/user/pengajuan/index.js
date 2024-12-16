@@ -1,12 +1,18 @@
 import React from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
+import { useRouter } from 'next/router'
 
 const Pengajuan = () => {
+  const router = useRouter()
+  const handleSubmit = async () => {
+    router.push('/user/pengajuan/preview')
+  }
+  
   return (
     <RootLayout>
       <div className='px-10 py-5'>
       <h1 className='	text-center mb-5 text-3xl'><b>PERMOHONAN KEAMANAN SERTIFIKAT</b></h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='flex w-full gap-10'>
         <div className='flex flex-col gap-3 w-full p-2'>
           <label for="name">Nama Lengkap</label>

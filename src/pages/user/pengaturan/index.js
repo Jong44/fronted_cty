@@ -12,17 +12,17 @@ const Index = () => {
     {
       id: 1,
       title: 'Account Settings',
-      link: '/user/account_setting',
+      link: '/user/pengaturan/account_setting',
     },
     {
       id: 2,
       title: 'Security & Privacy',
-      link: '/user/security_setting',
+      link: '/user/pengaturan/security_setting',
     },
     {
       id: 3,
       title: 'Notification',
-      link: '/user/notification_setting',
+      link: '/user/pengaturan/notification_setting',
     },
   ];
 

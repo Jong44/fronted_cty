@@ -58,7 +58,7 @@
                 <b>BACK</b>
                 </button>
                 <button type="submit" className='p-4 bg-blue-500 rounded-3xl text-white px-6 py-2'>
-                <b>SUBMIT</b>
+                <b>Next</b>
                 </button>
             </div>
             </form>
