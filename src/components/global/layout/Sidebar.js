@@ -31,6 +31,12 @@ const Index = () => {
       icon: "Cheque.svg",
       link: "/user/sertifikat",
     },
+    {
+      id: 5,
+      title: "Activities",
+      icon: "activities.svg",
+      link: "/user/activities",
+    },
   ];
 
   const accountMenuData = [
