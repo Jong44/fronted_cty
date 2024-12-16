@@ -38,7 +38,7 @@ const Index = () => {
       id: 1,
       title: "Pengaturan",
       icon: "setting.svg",
-      link: "/user/pengaturan",
+      link: "/user/pengaturan/account_setting",
     },
     {
       id: 2,
