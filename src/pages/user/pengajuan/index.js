@@ -12,8 +12,8 @@ const Pengajuan = () => {
     notelp: '',
     nik: '',
     alm: '',
-    sertif: '',
-    ktp: ''
+    sertif: null,
+    ktp: null
   })
 
   const schema = yup.object().shape({
@@ -22,15 +22,46 @@ const Pengajuan = () => {
     notelp: yup.string().required().test('len', 'Must be exactly 12 characters', val => val.toString().length === 12),
     nik: yup.number().required().test('len', 'Must be exactly 16 characters', val => val.toString().length === 16),
     alm: yup.string().required(),
-    sertif: yup.mixed().required().test('fileSize', 'File is too large', value => value && value.size <= 2000000).test('fileType', 'File is not supported', value => value && ['image/jpeg', 'image/png'].includes(value.type)),
-    ktp: yup.mixed().required().test('fileSize', 'File is too large', value => value && value.size <= 2000000).test('fileType', 'File is not supported', value => value && ['image/jpeg', 'image/png'].includes(value.type))
   })
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
+
+    const data = {
+      name: values.name,
+      email: values.email,
+      notelp: values.notelp,
+      nik: values.nik,
+      alm: values.alm,
+      sertif: formData.sertif,
+      ktp: formData.ktp
+    }
+    localStorage.setItem('formPengajuan', JSON.stringify(data))
     router.push('/user/pengajuan/preview')
   }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setFormData({
+          ...formData,
+          [e.target.name]: reader.result
+        })
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   
   return (
     <RootLayout>
@@ -75,21 +106,20 @@ const Pengajuan = () => {
             </div>
             <div className='flex flex-col gap-3 p-2'>
               <label for="notelp">File Sertifikat</label>
-              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="sertif" name="sertif"/>
+              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="sertif" name="sertif" onChange={(e) => handleFileChange(e, setFieldValue)}/>
               <ErrorMessage name="sertif" component={'p'} className='text-red-500' />
             </div>
             <div className='flex flex-col gap-3 p-2'>
               <label for="notelp">File KTP</label>
-              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="ktp" name="ktp"/>
+              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="ktp" name="ktp" onChange={(e) => handleFileChange(e, setFieldValue)}/>
               <ErrorMessage name="ktp" component={'p'} className='text-red-500' />
             </div>
             <div className='grid'>
-            <button type="submit" className='p-4 bg-blue-500 flex justify-self-end items-end rounded-3xl text-white px-6 py-2' ><b>SUBMIT</b></button>
+              <button type="submit" disabled={isSubmitting} className='p-4 bg-blue-500 flex justify-self-end items-end rounded-3xl text-white px-6 py-2' ><b>SUBMIT</b></button>
             </div>
           </Form>
           )}
         </Formik>
-        
       </div>
     </RootLayout>
   )
