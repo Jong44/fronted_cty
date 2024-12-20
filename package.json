@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.47.10",
     "axios": "^1.7.9",
     "formik": "^2.4.6",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
+    "sweetalert2": "^11.15.2",
     "yup": "^1.5.0"
   },
   "devDependencies": {
