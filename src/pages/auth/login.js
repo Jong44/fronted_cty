@@ -17,7 +17,7 @@ const Login = () => {
   })
 
   const handleSubmit = async () => {
-    
+    router.push('/user/dashboard')
   }
 
   return (
