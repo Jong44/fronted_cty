@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 import CardPrimary from '@/components/global/CardPrimary'
+import { TransaksiApi } from '@/services/transaksi';
 
 const Dashboard = () => {
+      const [dataTransaksi, setDataTransaksi] = useState(0);
+      const [loading, setLoading] = useState(false);
+      useEffect(() => {
+          const fetchTransaksi = async () => {
+              setLoading(true);
+              const data = await TransaksiApi().getCountTransaksiByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
+              setDataTransaksi(data.data);
+              setLoading(false);
+          };
+          fetchTransaksi();
+      }, []);
   return (
     <RootLayout>
       <main className='px-10 py-5 md:flex gap-10'>
@@ -22,7 +34,7 @@ const Dashboard = () => {
           <CardPrimary>
             <h4 className='text-center'><b>Transaksi</b></h4>
             <div className='text-5xl text-center'>
-              10
+              {dataTransaksi}
             </div>
           </CardPrimary>
         </div>
