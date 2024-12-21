@@ -12,8 +12,8 @@ const Login = () => {
   })
 
   const schema = Yup.object().shape({
-    email: Yup.string().email().required(),
-    password: Yup.string().required(),
+    email: Yup.string().email().required('Email Harus Terisi'),
+    password: Yup.string().required('Password Harus Terisi'),
   })
 
   const handleSubmit = async () => {
@@ -64,7 +64,7 @@ const Login = () => {
               disabled={isSubmitting}
               className="mt-4 w-[40rem] p-2 bg-blue-500 text-white rounded"
             >
-              Login
+              Masuk
             </button>
             </Form>  
             )}
