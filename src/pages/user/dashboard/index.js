@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 import CardPrimary from '@/components/global/CardPrimary'
+import { SertifikatApi } from '@/services/sertifikat';
 
 const Dashboard = () => {
+      const [dataSertifikat, setDataSertifikat] = useState(0);
+      const [loading, setLoading] = useState(false);
+      useEffect(() => {
+          const fetchSertifikat = async () => {
+              setLoading(true);
+              const data = await SertifikatApi().getCountSertifikatByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
+              setDataSertifikat(data.data);
+              setLoading(false);
+          };
+          fetchSertifikat();
+      }, []);
   return (
     <RootLayout>
       <main className='px-10 py-5 md:flex gap-10'>
@@ -10,7 +22,7 @@ const Dashboard = () => {
           <CardPrimary>
             <h4 className='text-center'><b>Sertifikat</b></h4>
             <div className='text-5xl text-center'>
-              10
+              {dataSertifikat}
             </div>
           </CardPrimary>
           <CardPrimary>
