@@ -23,7 +23,7 @@ const Notifikasi = () => {
           setDataNotifikasi(data.data);
         } else {
           console.log('Data yang diterima bukan array:', data);
-          setDataNotifikasi([]);
+          setDataNotifikasi([]); // Set empty array if data is not an array
         }
       } catch (err) {
         console.error('Error fetching notifications:', err);
@@ -37,16 +37,20 @@ const Notifikasi = () => {
 
   const { readAllNotification, deleteAllNotification } = NotifikasiApi();
 
+  // Update notifications as read without removing them
   const handleReadAllNotification = async () => {
     try {
+      // Call the API to mark all notifications as read
       const data = await readAllNotification("239181d2-1724-4aa3-9224-949912e8f2f3");
       console.log('Notifikasi berhasil dibaca:', data);
+
+      // Update the state to reflect that all notifications have been read
       setDataNotifikasi(prevState =>
         prevState.map(notification => ({
           ...notification,
-          is_read: "true",
+          is_read: "true", // Set is_read to true for all notifications
         }))
-      ); 
+      );
     } catch (err) {
       console.error('Gagal membaca notifikasi:', err);
     }
@@ -56,7 +60,7 @@ const Notifikasi = () => {
     try {
       const data = await deleteAllNotification("239181d2-1724-4aa3-9224-949912e8f2f3");
       console.log('Notifikasi berhasil dihapus:', data);
-      setDataNotifikasi([]); 
+      setDataNotifikasi([]); // Clear notifications from UI
     } catch (err) {
       console.error('Gagal menghapus notifikasi:', err);
     }
@@ -84,7 +88,7 @@ const Notifikasi = () => {
 
             {loading ? (
               <div>
-                <Skeleton height={30} count={5} /> {/*ketika sedang dimuat*/}
+                <Skeleton height={30} count={5} /> {/* Loading state */}
               </div>
             ) : dataNotifikasi && dataNotifikasi.length === 0 ? (
               <p>Tidak ada notifikasi saat ini.</p> 
@@ -105,7 +109,9 @@ const Notifikasi = () => {
                       {item.message ?? "Content"}
                     </h4>
                   </div>
-                  {item.is_read == "false" ? (<div className="w-5 h-5 bg-blue-400 my-5 rounded-full"></div> ) : null }
+                  {item.is_read === "false" ? (
+                    <div className="w-5 h-5 bg-blue-400 my-5 rounded-full"></div>
+                  ) : null}
                 </div>
               ))
             )}

@@ -12,9 +12,9 @@ const Register = () => {
   })
 
   const schema = Yup.object().shape({
-    email: Yup.string().email().required(),
-    password: Yup.string().required(),
-    passwordConfirm: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required()
+    email: Yup.string().email().required('Email Harus Terisi'),
+    password: Yup.string().required('Password Harus Terisi'),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password')], 'Password Harus Sesuai').required('Konfirmasi Password Harus Terisi')
   })
 
   const handleSubmit = async () => {
@@ -78,7 +78,7 @@ const Register = () => {
               disabled={isSubmitting}
               className="mt-4 w-[40rem] p-2 bg-blue-500 text-white rounded"
             >
-              Register
+              Daftar
             </button>
             </Form>  
             )}
