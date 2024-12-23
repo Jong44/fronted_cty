@@ -13,12 +13,15 @@ const Notifikasi = () => {
 
   const [dataNotifikasi, setDataNotifikasi] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [uid, setUid] = useState(null);
 
   useEffect(() => {
+    const uid = localStorage.getItem('uid');
+    setUid(uid);
     const fetchNotifikasi = async () => {
       setLoading(true);
       try {
-        const data = await NotifikasiApi().getAllNotificationByUser("239181d2-1724-4aa3-9224-949912e8f2f3");
+        const data = await NotifikasiApi().getAllNotificationByUser(uid);
         if (Array.isArray(data.data)) {
           setDataNotifikasi(data.data);
         } else {
@@ -39,7 +42,7 @@ const Notifikasi = () => {
 
   const handleReadAllNotification = async () => {
     try {
-      const data = await readAllNotification("239181d2-1724-4aa3-9224-949912e8f2f3");
+      const data = await readAllNotification(uid);
       console.log('Notifikasi berhasil dibaca:', data);
       setDataNotifikasi(prevState =>
         prevState.map(notification => ({
@@ -54,7 +57,7 @@ const Notifikasi = () => {
 
   const handleDeleteAllNotification = async () => {
     try {
-      const data = await deleteAllNotification("239181d2-1724-4aa3-9224-949912e8f2f3");
+      const data = await deleteAllNotification(uid);
       console.log('Notifikasi berhasil dihapus:', data);
       setDataNotifikasi([]); 
     } catch (err) {

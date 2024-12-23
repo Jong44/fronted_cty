@@ -9,10 +9,11 @@ const Dashboard = () => {
       const [dataSertifikat, setDataSertifikat] = useState(0);
       const [loading, setLoading] = useState(false);
       useEffect(() => {
+          const uid = localStorage.getItem('uid');
           const fetchSertifikat = async () => {
               setLoading(true);
-              const dataSertifikat = await SertifikatApi().getCountSertifikatByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
-              const dataTransaksi = await TransaksiApi().getCountTransaksiByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
+              const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
+              const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
               setDataSertifikat(dataSertifikat.data);
               setDataTransaksi(dataTransaksi.data);
               setLoading(false);
