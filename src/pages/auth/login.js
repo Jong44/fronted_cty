@@ -1,8 +1,14 @@
+import { createClient } from '@supabase/supabase-js'
 import { alertSuccess } from '@/utils/callAlert'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import * as Yup from 'yup'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL, 
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
 
 const Login = () => {
   const router = useRouter()
@@ -16,8 +22,22 @@ const Login = () => {
     password: Yup.string().required('Password Harus Terisi'),
   })
 
-  const handleSubmit = async () => {
-    router.push('/user/dashboard')
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const { email, password } = values
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (error) {
+        alert(`Login gagal: ${error.message}`)
+      } else {
+        alertSuccess('Login berhasil!')
+        router.push('/user/dashboard')
+      }
+    } catch (error) {
+      console.error('Error during login:', error)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -64,7 +84,7 @@ const Login = () => {
               disabled={isSubmitting}
               className="mt-4 w-[40rem] p-2 bg-blue-500 text-white rounded"
             >
-              Masuk
+              Login
             </button>
             </Form>  
             )}
