@@ -84,7 +84,7 @@ const Login = () => {
               disabled={isSubmitting}
               className="mt-4 w-[40rem] p-2 bg-blue-500 text-white rounded"
             >
-              Login
+              Masuk
             </button>
             </Form>  
             )}
