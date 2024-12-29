@@ -11,11 +11,9 @@ const Register = () => {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const schema = Yup.object().shape({
-    email: Yup.string().email().required(),
-    password: Yup.string().required(),
-    passwordConfirm: Yup.string()
-      .oneOf([Yup.ref('password')], 'Passwords must match')
-      .required(),
+    email: Yup.string().email().required('Email Harus Terisi'),
+    password: Yup.string().required('Password Harus Terisi'),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password')], 'Password Harus Sesuai').required('Konfirmasi Password Harus Terisi')
   })
 
   const handleSignUp = async (values) => {
