@@ -5,6 +5,11 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    passwordConfirm: ''
+  })
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [modalMessage, setModalMessage] = useState('')
@@ -40,7 +45,7 @@ const Register = () => {
     <div className="flex h-screen">
       <div className="flex-initial w-2/5 bg-blue-500">
         <div className="flex items-center h-full">
-          <img src="/assets/logo.svg" alt="Logo" />
+          <img src="/assets/logo.svg" alt="Logo"/>
         </div>
       </div>
 
@@ -48,7 +53,7 @@ const Register = () => {
         <div className="h-full flex flex-col justify-center items-center">
           <p className="text-3xl text-center mb-4"><b>Selamat Datang Bos!</b></p>
           <Formik
-            initialValues={{ email: '', password: '', passwordConfirm: '' }}
+            initialValues={formData}
             validationSchema={schema}
             onSubmit={handleSignUp}
           >
