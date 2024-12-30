@@ -25,11 +25,13 @@ const Login = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const { email, password } = values
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      const { data,error } = await supabase.auth.signInWithPassword({ email, password })
 
       if (error) {
         alert(`Login gagal: ${error.message}`)
       } else {
+        const uid = data.user.id
+        localStorage.setItem('uid', uid)
         alertSuccess('Login berhasil!')
         router.push('/user/dashboard')
       }

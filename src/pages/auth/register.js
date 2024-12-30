@@ -22,7 +22,23 @@ const Register = () => {
   })
 
   const handleSignUp = async (values) => {
-    
+    try {
+      const { error } = await signUp(values.email, values.password)
+      
+      if (error) {
+        setModalMessage(`Pendaftaran gagal: ${error.message}`)
+        setIsSuccess(false)
+      } else {
+        setModalMessage('Pendaftaran berhasil! Silakan periksa email Anda untuk konfirmasi.')
+        setIsSuccess(true)
+      }
+      setShowModal(true)
+    } catch (err) {
+      console.error('Unexpected error:', err)
+      setModalMessage('Terjadi kesalahan tak terduga. Silakan coba lagi.')
+      setIsSuccess(false)
+      setShowModal(true)
+    }
   }
 
   return (
