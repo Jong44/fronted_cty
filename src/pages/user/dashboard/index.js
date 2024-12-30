@@ -8,16 +8,16 @@ const Dashboard = () => {
       const [dataTransaksi, setDataTransaksi] = useState(0);
       const [dataSertifikat, setDataSertifikat] = useState(0);
       const [loading, setLoading] = useState(false);
-      const fetchSertifikat = async () => {
-        const uid = localStorage.getItem('uid') || null;
-          setLoading(true);
-          const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
-          const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
-          setDataSertifikat(dataSertifikat.data);
-          setDataTransaksi(dataTransaksi.data);
-          setLoading(false);
-      };
       useEffect(() => {
+          const uid = localStorage.getItem('uid');
+          const fetchSertifikat = async () => {
+              setLoading(true);
+              const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
+              const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
+              setDataSertifikat(dataSertifikat.data);
+              setDataTransaksi(dataTransaksi.data);
+              setLoading(false);
+          };
           fetchSertifikat();
       }, []);
   return (

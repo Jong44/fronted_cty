@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { alertSuccess } from '@/utils/callAlert'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 
 const supabase = createClient(
@@ -39,10 +39,6 @@ const Login = () => {
       setSubmitting(false)
     }
   }
-
-  useEffect(() => {
-    localStorage.setItem("uid", "239181d2-1724-4aa3-9224-949912e8f2f3");
-  }, []);
 
   return (
     <div className="flex h-screen">
