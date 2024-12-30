@@ -1,10 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 import Image from 'next/image';
+import { SertifikatApi } from '@/services/sertifikat';
+import Skeleton from 'react-loading-skeleton';
 
 const Sertifikat = () => {
   // Menyimpan state untuk mengontrol visibilitas dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [uid, setUid] = useState(null);
+  const [dataSertifikat, setDataSertifikat] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const uid = localStorage.getItem('uid');
+    setUid(uid);
+    const fetchSertifikat = async () => {
+      setLoading(true);
+      const dataSertifikat = await SertifikatApi().getAllSertificate(uid);
+      setDataSertifikat(dataSertifikat.data);
+      setLoading(false);
+      console.log(dataSertifikat);
+    }
+    fetchSertifikat();
+  }, []);
 
   // Fungsi untuk toggle dropdown
   const toggleDropdown = () => {
@@ -13,7 +31,8 @@ const Sertifikat = () => {
 
   return (
     <RootLayout>
-      <div className="mb-6">
+      <div className='px-10 py-5'>
+      <div className="mb-6 ">
         {/* Judul di atas dropdown */}
         <h2 className="text-2xl font-bold text-gray-800 mb-4">MY CERTIFICATE</h2>
 
@@ -47,23 +66,37 @@ const Sertifikat = () => {
 
       {/* Cards Container */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
-            <div className="w-full h-40 relative">
-              <Image 
-                src="/assets/icons/sertifikat1.png" 
-                alt={`Sertifikat ${index + 1}`} 
-                layout="fill" 
-                objectFit="cover" 
-                className="rounded-t-lg"
-              />
+        {loading ? (
+          [1, 2, 3, 4].map((item, index) => (
+            <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+              <div className="w-full h-40 relative">
+                <Skeleton height={160} />
+              </div>
+              <div className="p-4">
+                <Skeleton height={20} width={100} />
+              </div>
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">Sertifikat {index + 1}</h3>
+          ))
+        ) : (
+          dataSertifikat.map((item, index) => (
+            <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+              <div className="w-full h-40 relative">
+                <Image
+                  src="/assets/icons/sertifikat1.png"
+                  alt={`Sertifikat ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-lg"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800">Sertifikat {index + 1}</h3>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
+    </div>  
     </RootLayout>
   );
 }
