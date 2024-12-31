@@ -50,7 +50,7 @@ const Index = () => {
       id: 2,
       title: "Keluar",
       icon: "logout.svg",
-      link: "/user/logout",
+      link: "/auth/logout",
     },
   ];
 
