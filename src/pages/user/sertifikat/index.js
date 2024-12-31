@@ -3,6 +3,7 @@ import RootLayout from '@/components/global/layout/RootLayout'
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';
 import { SertifikatApi } from '@/services/sertifikat';
+import { useRouter } from 'next/router';  // Import useRouter
 
 const Sertifikat = () => {
   // Menyimpan state untuk mengontrol visibilitas dropdown
@@ -10,6 +11,8 @@ const Sertifikat = () => {
   const [uid, setUid] = useState(null);
   const [dataSertifikat, setDataSertifikat] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();  // Inisialisasi useRouter
+
   useEffect(() => {
     const uid = localStorage.getItem('uid');
     setUid(uid);
@@ -27,13 +30,16 @@ const Sertifikat = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  
+
   const decryptURL = (encryptedData, iv) => {
     const url = SertifikatApi().decryptURL(encryptedData, iv);
     return url;
   }
 
-
+  // Fungsi untuk handle onClick navigasi
+  const handleCardClick = () => {
+    router.push('/user/sertifikat/preview');
+  }
 
   return (
     <RootLayout>
@@ -72,35 +78,35 @@ const Sertifikat = () => {
 
         {/* Cards Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {loading ? (
-          [1, 2, 3, 4].map((item, index) => (
-            <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <div className="w-full h-40 relative">
-                <Skeleton height={160} />
+          {loading ? (
+            [1, 2, 3, 4].map((item, index) => (
+              <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="w-full h-40 relative">
+                  <Skeleton height={160} />
+                </div>
+                <div className="p-4">
+                  <Skeleton height={20} width={100} />
+                </div>
               </div>
-              <div className="p-4">
-                <Skeleton height={20} width={100} />
+            ))
+          ) : (
+            dataSertifikat?.map((item, index) => (
+              <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl" onClick={handleCardClick}>
+                <div className="w-full h-40 relative">
+                  <Image
+                    src={decryptURL(item.data_decrypted.file_sertifikat?.data, item.data_decrypted.file_sertifikat?.iv)}
+                    alt={`Sertifikat ${index + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-lg"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-800">Sertifikat {index + 1}</h3>
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          dataSertifikat?.map((item, index) => (
-            <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <div className="w-full h-40 relative">
-                <Image
-                  src={decryptURL(item.data_decrypted.file_sertifikat?.data, item.data_decrypted.file_sertifikat?.iv)}
-                  alt={`Sertifikat ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-lg"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">Sertifikat {index + 1}</h3>
-              </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
         </div>
       </div>
     </RootLayout>
