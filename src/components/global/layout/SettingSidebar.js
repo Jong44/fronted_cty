@@ -65,7 +65,7 @@ const Index = () => {
           width={20}
           height={20}
         />
-        <span>Keluar</span>
+        <span >Keluar</span>
       </div>
     </aside>
   )

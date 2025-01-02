@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { alertSuccess, alertError, alertConfirm } from '@/utils/callAlert'
+import { PengajuanApi } from '@/services/pengajuan'
 
 const Pengajuan = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const { submitPengajuan } = PengajuanApi();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,6 +19,20 @@ const Pengajuan = () => {
     sertif: null,
     ktp: null
   })
+  const [uuid, setUuid] = useState('')
+
+  useEffect(() => {
+      const uid = localStorage.getItem('uid');
+      if(uid){
+          setUuid(uid);
+      }
+      const data = localStorage.getItem('formPengajuan');
+      if (data) {
+          setFormData(JSON.parse(data));
+      } else {
+          router.push('/user/pengajuan');
+      }
+  }, []);
 
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -24,44 +42,47 @@ const Pengajuan = () => {
     alm: yup.string().required(),
   })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value
-    })
-  }
 
+      const handleSubmit = async (values, {setSubmitting}) => {
+  
+          const result = await alertConfirm('Apakah Anda yakin ingin mengirim data ini?');
+          if (result.isConfirmed) {
+            try {
+              const formDatas = new FormData();
+              formDatas.append('nama', values.name);
+              formDatas.append('email', values.email);
+              formDatas.append('no_hp', values.notelp);
+              formDatas.append('alamat', values.alm);
+              formDatas.append('nik', values.nik);
+              formDatas.append('sertifikat', formData.sertif);
+              formDatas.append('ktp', formData.ktp);
+              formDatas.append('uuid',uuid);
+  
+              const response = await submitPengajuan(formDatas);
+      
+              if (response.success) {
+                alertSuccess('Pengajuan berhasil!');
+                router.push('/user/dashboard');
+              } else {
+                alertError(response.message || 'Pengajuan gagal!');
+                router.push('/user/pengajuan');
+              }
+            } catch (error) {
+              alertError(`Terjadi kesalahan: ${error.message}`); 
+              console.error(error)
+            }
+          }
+        };
 
-  const handleSubmit = async (values) => {
-
-    const data = {
-      name: values.name,
-      email: values.email,
-      notelp: values.notelp,
-      nik: values.nik,
-      alm: values.alm,
-      sertif: formData.sertif,
-      ktp: formData.ktp
-    }
-    localStorage.setItem('formPengajuan', JSON.stringify(data))
-    router.push('/user/pengajuan/preview')
-  }
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        setFormData({
-          ...formData,
-          [e.target.name]: reader.result
-        })
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
+        const handleFileChange = (e) => {
+          const file = e.target.files[0];
+          if(file){
+            setFormData({
+              ...formData,
+              [e.target.name] : file
+            })
+          }
+        }
   
   return (
     <RootLayout>
@@ -106,7 +127,7 @@ const Pengajuan = () => {
             </div>
             <div className='flex flex-col gap-3 p-2'>
               <label for="notelp">File Sertifikat</label>
-              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="sertif" name="sertif" onChange={(e) => handleFileChange(e, setFieldValue)}/>
+              <Field className="border border-black rounded-lg outline-none p-2" type="file" id="sertif" name="sertif" onChange={(e) => handleFileChange(e, setFieldValue)} />
               <ErrorMessage name="sertif" component={'p'} className='text-red-500' />
             </div>
             <div className='flex flex-col gap-3 p-2'>

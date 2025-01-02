@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 import CardPrimary from '@/components/global/CardPrimary'
 import { TransaksiApi } from '@/services/transaksi';
+import { SertifikatApi } from '@/services/sertifikat';
 
 const Dashboard = () => {
       const [dataTransaksi, setDataTransaksi] = useState(0);
+      const [dataSertifikat, setDataSertifikat] = useState(0);
+      const [dataSertifikats, setDataSertifikats] = useState([]);
       const [loading, setLoading] = useState(false);
       useEffect(() => {
-          const fetchTransaksi = async () => {
+          const uid = localStorage.getItem('uid');
+          const fetchSertifikat = async () => {
               setLoading(true);
-              const data = await TransaksiApi().getCountTransaksiByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
-              setDataTransaksi(data.data);
+              const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
+              const dataSertifikats = await SertifikatApi().getAllSertificate(uid);
+              const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
+              setDataSertifikat(dataSertifikat.data);
+              setDataTransaksi(dataTransaksi.data);
+              setDataSertifikats(dataSertifikats.data);
               setLoading(false);
           };
-          fetchTransaksi();
+          fetchSertifikat();
       }, []);
   return (
     <RootLayout>
@@ -22,7 +30,7 @@ const Dashboard = () => {
           <CardPrimary>
             <h4 className='text-center'><b>Sertifikat</b></h4>
             <div className='text-5xl text-center'>
-              10
+              {dataSertifikat}
             </div>
           </CardPrimary>
           <CardPrimary>
