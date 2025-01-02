@@ -8,10 +8,14 @@ export const PengajuanApi = () => {
     try {
       const response = await axios.post(url, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
       });
-      return response.data;
+      if(response.status === 201) {
+        return response.data;
+      }else{
+        return response.data
+      }
     } catch (error) {
       console.error('Error submitting pengajuan:', error.message);
       return { success: false, message: error.message };
