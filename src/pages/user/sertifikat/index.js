@@ -38,7 +38,7 @@ const Sertifikat = () => {
 
   // Fungsi untuk handle onClick navigasi
   const handleCardClick = () => {
-    router.push('/user/sertifikat/preview');
+    router.push('/user/sertifikat/preview/d8748acb5070ca245697ff5205fb98e59c202b3915bf7829932709f9ac297616');
   }
 
   return (

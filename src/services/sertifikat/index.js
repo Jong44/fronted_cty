@@ -33,11 +33,23 @@ export const SertifikatApi = () => {
         );
     
         return decrypted.toString(CryptoJS.enc.Utf8); // URL asli
-    };    
+    };
+    
+    const getSertifikatByHash = async (hash) => {
+        try {
+            const ress = await axios?.get(`${url}/hash/${hash}`);
+            return ress?.data;
+        }
+        catch (err) {
+            console.log(err);
+            return [];
+        }
+    }
 
     return {
         getCountSertifikatByUid,
         getAllSertificate,
-        decryptURL
+        decryptURL,
+        getSertifikatByHash
     };
 }

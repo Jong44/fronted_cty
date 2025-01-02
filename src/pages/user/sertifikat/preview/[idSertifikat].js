@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RootLayout from '@/components/global/layout/RootLayout';
+import { useRouter } from 'next/router';
+import { SertifikatApi } from '@/services/sertifikat';
 
 const Transaksi = () => {
+  const router = useRouter();
+
+  const { idSertifikat } = router.query;
+
+  const fetchSertifikat = async () => {
+    const data = await SertifikatApi().getSertifikatByHash(idSertifikat);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    if (idSertifikat) {
+      fetchSertifikat();
+    }
+  }, [idSertifikat]);
+  
   // Fungsi untuk mendownload gambar
   const handleDownload = () => {
     const link = document.createElement('a');
