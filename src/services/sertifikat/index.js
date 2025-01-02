@@ -34,6 +34,7 @@ export const SertifikatApi = () => {
     
         return decrypted.toString(CryptoJS.enc.Utf8); // URL asli
     };    
+
     return {
         getCountSertifikatByUid,
         getAllSertificate,

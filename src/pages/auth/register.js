@@ -1,4 +1,4 @@
-import { signUp } from '../../services/user/supabaseClient'
+import { createUser, signUp } from '../../services/user/supabaseClient'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -23,13 +23,18 @@ const Register = () => {
 
   const handleSignUp = async (values) => {
     try {
-      const { error } = await signUp(values.email, values.password)
+      const { data, error } = await signUp(values.email, values.password)
       
       if (error) {
         setModalMessage(`Pendaftaran gagal: ${error.message}`)
         setIsSuccess(false)
       } else {
         setModalMessage('Pendaftaran berhasil! Silakan periksa email Anda untuk konfirmasi.')
+        const { data: userData, error: userError } = await createUser(values.email, data.user.id)
+        if (userError) {
+          setModalMessage(`Pendaftaran gagal: ${userError.message}`)
+          setIsSuccess(false)
+        }
         setIsSuccess(true)
       }
       setShowModal(true)

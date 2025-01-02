@@ -7,15 +7,18 @@ import { SertifikatApi } from '@/services/sertifikat';
 const Dashboard = () => {
       const [dataTransaksi, setDataTransaksi] = useState(0);
       const [dataSertifikat, setDataSertifikat] = useState(0);
+      const [dataSertifikats, setDataSertifikats] = useState([]);
       const [loading, setLoading] = useState(false);
       useEffect(() => {
           const uid = localStorage.getItem('uid');
           const fetchSertifikat = async () => {
               setLoading(true);
               const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
+              const dataSertifikats = await SertifikatApi().getAllSertificate(uid);
               const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
               setDataSertifikat(dataSertifikat.data);
               setDataTransaksi(dataTransaksi.data);
+              setDataSertifikats(dataSertifikats.data);
               setLoading(false);
           };
           fetchSertifikat();
