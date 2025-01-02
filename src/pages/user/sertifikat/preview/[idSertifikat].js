@@ -3,7 +3,7 @@ import RootLayout from '@/components/global/layout/RootLayout';
 import { useRouter } from 'next/router';
 import { SertifikatApi } from '@/services/sertifikat';
 
-const Transaksi = () => {
+const PreviewSertifikat = () => {
   const router = useRouter();
 
   const { idSertifikat } = router.query;
@@ -118,4 +118,4 @@ const Transaksi = () => {
   );
 };
 
-export default Transaksi;
+export default PreviewSertifikat;
