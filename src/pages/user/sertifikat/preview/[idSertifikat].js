@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import RootLayout from '@/components/global/layout/RootLayout';
 import { useRouter } from 'next/router';
 import { SertifikatApi } from '@/services/sertifikat';
@@ -7,10 +7,17 @@ const PreviewSertifikat = () => {
   const router = useRouter();
 
   const { idSertifikat } = router.query;
+  const [sertifikat, setSertifikat] = useState({
+    nama: '',
+    no_hp: '',
+    bidang_tanah: '',
+    pemegang_hak: '',
+    catatan_pendaftaran: '',
+  });
 
   const fetchSertifikat = async () => {
     const data = await SertifikatApi().getSertifikatByHash(idSertifikat);
-    console.log(data);
+    setSertifikat(data.data.data_decrypted);
   };
 
   useEffect(() => {
@@ -31,6 +38,8 @@ const PreviewSertifikat = () => {
   const handleDelete = () => {
     alert('Sertifikat telah dihapus'); // Anda bisa mengganti ini dengan logika penghapusan yang sesuai
   };
+
+  // 1) Renaldi Wicaksono, Rembang, 07 Januari 2004, 2) Tabitha Fatmati, Rembang, 02 Agustus 2004
 
   return (
     <RootLayout>
@@ -77,26 +86,28 @@ const PreviewSertifikat = () => {
               <div className="break-words">
                 <h2 className="text-lg font-bold mb-4">Nama</h2>
                 <div className="border border-gray-300 p-4 rounded-lg">
-                  <h1>Radian</h1>
+                  <h1>{sertifikat?.nama}</h1>
                 </div>
               </div>
               <div className="break-words">
                 <h2 className="text-lg font-bold mb-4">No. Telp</h2>
                 <div className="border border-gray-300 p-4 rounded-lg">
-                  <h1>081234567890</h1>
+                  <h1>{sertifikat?.no_hp}</h1>
                 </div>
               </div>
               <div className="break-words">
                 <h2 className="text-lg font-bold mb-4">Bidang Tanah</h2>
                 <div className="border border-gray-300 p-4 rounded-lg">
-                  <p>Bidang tanah ini terletak di Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rhoncus blandit turpis eget ornare. Fusce pulvinar lacus diam.</p>
+                  <p>{sertifikat?.sertifikat?.alamat}</p>
                 </div>
               </div>
               <div className="break-words">
                 <h2 className="text-lg font-bold mb-4">Pemegang Hak Milik</h2>
                 <div className="border border-gray-300 p-4 rounded-lg">
-                  <p>1. Tanjung, Semarang, 07 Oktober 20XX</p>
-                  <p>2. Adhitya, Pati, 02 Agustus 20XX</p>
+                  {/* 1) Renaldi Wicaksono, Rembang, 07 Januari 2004, 2) Tabitha Fatmati, Rembang, 02 Agustus 2004 */}
+                  {/* spilit pemegang hak '1) 2)' */}
+                  <p>{sertifikat?.sertifikat?.pemegangHak}</p>
+
                 </div>
               </div>
               <div className="break-words">
