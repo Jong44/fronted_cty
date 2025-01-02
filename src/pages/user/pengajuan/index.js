@@ -5,10 +5,12 @@ import * as yup from 'yup'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { alertSuccess, alertError, alertConfirm } from '@/utils/callAlert'
 import { PengajuanApi } from '@/services/pengajuan'
+import { NotifikasiApi } from '@/services/notifikasi'
 
 const Pengajuan = () => {
   const router = useRouter();
   const { submitPengajuan } = PengajuanApi();
+  const { sendNotificationToUser } = NotifikasiApi();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -62,14 +64,17 @@ const Pengajuan = () => {
       
               if (response.success) {
                 alertSuccess('Pengajuan berhasil!');
+                await sendNotificationToUser(uuid, 'Pengajuan Berhasil' , 'Sertifikat Anda berhasil dibuat.');
                 router.push('/user/dashboard');
               } else {
                 alertError(response.message || 'Pengajuan gagal!');
+                await sendNotificationToUser(uuid, 'Pengajuan Gagal', response.message || 'Terjadi kesalahan saat memproses pengajuan.');
                 router.push('/user/pengajuan');
               }
             } catch (error) {
               alertError(`Terjadi kesalahan: ${error.message}`); 
-              console.error(error)
+              console.error(error);
+              await sendNotificationToUser(uuid, 'Pengajuan Error', `Terjadi kesalahan: ${error.message}`);
             }
           }
         };

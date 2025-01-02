@@ -25,7 +25,7 @@ export const NotifikasiApi = () => {
   };
 
   const deleteAllNotification = async (uid) => {
-    try {
+    try {                 
       const ress = await axios?.delete(`${url}/${uid}`);
       return ress?.data || [];
     } catch (err) {
@@ -34,9 +34,20 @@ export const NotifikasiApi = () => {
     }
   };
 
+  const sendNotificationToUser = async (uid, title, message) => {
+    try {
+      const ress = await axios.post(`${url}/${uid}`, { uid, title, message });
+      return ress?.data || {};
+    } catch (err) {
+      console.log(err);
+      return {};
+    }
+  };  
+
   return {
     getAllNotificationByUser,
     readAllNotification,
     deleteAllNotification,
+    sendNotificationToUser,
   };
 };
