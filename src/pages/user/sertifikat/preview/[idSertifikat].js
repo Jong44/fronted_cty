@@ -55,7 +55,7 @@ const PreviewSertifikat = () => {
 
   return (
     <RootLayout>
-      <div className="flex space-x-4 h-[35rem] overflow-y-auto">
+      <div className="flex space-x-4 overflow-y-auto">
 
         {/* Flex 1 */}
         <div className="flex-1 h-full">
@@ -71,20 +71,6 @@ const PreviewSertifikat = () => {
                   />
                 </div>
                 {/* Button Download and Hapus */}
-                <div className="mt-4 flex gap-4">
-                  <button
-                    onClick={handleDownload}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                  >
-                    Download
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                  >
-                    Hapus
-                  </button>
-                </div>
               </div>
             </div>
           </div>
