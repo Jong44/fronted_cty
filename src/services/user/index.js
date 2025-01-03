@@ -13,7 +13,7 @@ export const UserApi = () => {
         }
     };
 
-    const UpdateUser = async (uid) => {
+    const updateUser = async (uid) => {
         try {
             const ress = await axios?.put(`${url}/${uid}`);
             return ress?.data;
@@ -25,6 +25,7 @@ export const UserApi = () => {
 
     return {
         getUserByUid,
-        UpdateUser
+        updateUser
     };
 }
+
