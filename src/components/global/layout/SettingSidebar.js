@@ -34,7 +34,7 @@ const Index = () => {
           height={80}
           className="rounded-full mx-auto"
         />
-        <h3 className="font-semibold text-lg mt-4">Shazia Mirza</h3>
+        <h3 className="font-semibold text-lg mt-4">User</h3>
         <button className="mt-1 text-sm text-blue-200 flex items-center justify-center mx-auto gap-1">
           <Image
             src="/assets/icons/edit.svg"
@@ -58,15 +58,17 @@ const Index = () => {
           </Link>
         ))}
       </div>
+      <Link href={'/auth/logout'}>
       <div className="flex items-center gap-3 px-5 py-4 bg-primary cursor-pointer hover:bg-red-500">
-        <Image
-          src="/assets/icons/logout.svg"
-          alt="Logout Icon"
-          width={20}
-          height={20}
-        />
+          <Image
+            src="/assets/icons/logout.svg"
+            alt="Logout Icon"
+            width={20}
+            height={20}
+          />
         <span >Keluar</span>
       </div>
+      </Link>
     </aside>
   )
 }
