@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { alertSuccess } from '@/utils/callAlert'
+import { alertError } from '@/utils/callAlert'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -28,10 +29,11 @@ const Login = () => {
       const { data,error } = await supabase.auth.signInWithPassword({ email, password })
 
       if (error) {
-        alert(`Login gagal: ${error.message}`)
+        alertError(`Login gagal: ${error.message}`)
       } else {
         const uid = data.user.id
         localStorage.setItem('uid', uid)
+        localStorage.setItem('email', email)
         alertSuccess('Login berhasil!')
         router.push('/user/dashboard')
       }
@@ -74,7 +76,7 @@ const Login = () => {
               <label className="block">Password</label>
               <div className='flex flex-col'>
               <Field
-                id="password" name="password" type="text"
+                id="password" name="password" type="password"
                 className="w-[40rem] p-2 mt-2 border border-gray-300 rounded"
               />
               <ErrorMessage name='password' component={'p'} className='text-red-500' />

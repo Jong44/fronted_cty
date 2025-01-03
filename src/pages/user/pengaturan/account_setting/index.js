@@ -54,22 +54,6 @@ const AccountSetting = () => {
                   className="w-full p-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1">Private Key</label>
-                <input
-                  type="text"
-                  placeholder="Private Key"
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1">Public Key</label>
-                <input
-                  type="text"
-                  placeholder="Public Key"
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm"
-                />
-              </div>
             </div>
             <div className="mt-6 flex gap-4">
               <Link href={`/posts/edit/${post.id}`}>

@@ -11,3 +11,12 @@ export const signUp = async (email, password) => {
     password,
   })
 }
+
+
+
+export const createUser = async (email, uuid) => {
+  const name = "Guest"
+  return await supabase
+    .from('users')
+    .insert([{ name,email, uuid }])
+}

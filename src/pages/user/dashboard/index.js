@@ -3,19 +3,27 @@ import RootLayout from '@/components/global/layout/RootLayout'
 import CardPrimary from '@/components/global/CardPrimary'
 import { TransaksiApi } from '@/services/transaksi';
 import { SertifikatApi } from '@/services/sertifikat';
+import Skeleton from 'react-loading-skeleton';
 
 const Dashboard = () => {
       const [dataTransaksi, setDataTransaksi] = useState(0);
       const [dataSertifikat, setDataSertifikat] = useState(0);
+      const [dataSertifikats, setDataSertifikats] = useState([]);
+      const [dataListSertifikat, setDataListSertifikat] =useState([]);
       const [loading, setLoading] = useState(false);
       useEffect(() => {
           const uid = localStorage.getItem('uid');
           const fetchSertifikat = async () => {
               setLoading(true);
               const dataSertifikat = await SertifikatApi().getCountSertifikatByUid(uid);
+              const dataSertifikats = await SertifikatApi().getAllSertificate(uid);
               const dataTransaksi = await TransaksiApi().getCountTransaksiByUid(uid);
+              const dataList = await SertifikatApi().getAllSertificate(uid);
               setDataSertifikat(dataSertifikat.data);
               setDataTransaksi(dataTransaksi.data);
+              setDataSertifikats(dataSertifikats.data);
+              setDataListSertifikat(dataList.data);
+              console.log(dataList)
               setLoading(false);
           };
           fetchSertifikat();
@@ -57,20 +65,33 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className='border px-4 py-2'>1.</td>
-                  <td className='border px-4 py-2'>Shazia</td>
-                  <td className='border px-4 py-2'>Sertifikat Tanah</td>
-                  <td className='border px-4 py-2'>06-12-2024</td>
-                  <td className='border px-4 py-2'>Verified</td>
-                </tr>
-                <tr>
-                  <td className='border px-4 py-2'>2.</td>
-                  <td className='border px-4 py-2'>Shazia</td>
-                  <td className='border px-4 py-2'>Sertifikat Rumah</td>
-                  <td className='border px-4 py-2'>08-12-2024</td>
-                  <td className='border px-4 py-2'>Waiting</td>
-                </tr>
+                {loading ?(
+                  Array.from({ length: 3 }).map((_, i) => (
+                    <tr key={i}>
+                      <td className='border px-4 py-2'><Skeleton height={30} /> </td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                    </tr>
+                  ))
+                ) : (
+                  dataListSertifikat?.length < 0 ? (
+                    <tr key={index}>
+                      <td className='border px-4 py-2' colSpan='5'>Data Kosong</td>
+                  </tr>
+                  ) : (
+                    dataListSertifikat?.map((item, index) =>(
+                      <tr key={index}>
+                      <td className='border px-4 py-2'>{index +1}</td>
+                      <td className='border px-4 py-2'>{item.data_decrypted.nama}</td>
+                      <td className='border px-4 py-2'>Sertifikat Tanah</td>
+                      <td className='border px-4 py-2'>{new Date(item.created_at).toLocaleDateString()}</td>
+                      <td className='border px-4 py-2'>Verified</td>
+                    </tr>
+                    ))
+                  )
+                )}
               </tbody>
             </table>
           </div>
