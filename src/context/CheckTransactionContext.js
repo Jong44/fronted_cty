@@ -32,6 +32,7 @@ const hapusTransaksi = async (id) => {
 const createTransaksi = async (data) => {
     try {
         const response = await TransaksiApi().createTransaksi(data);
+        console.log(response);
         if (response.status === 201) {
             Swal.fire("Berhasil!", "Transaksi berhasil dilanjutkan", "success");
             hapusTransaksi(transaction[0].transaksi_id);
