@@ -1,7 +1,7 @@
 // pages/transaction.js
 import { SertifikatApi } from '@/services/sertifikat';
 import { TransaksiApi } from '@/services/transaksi';
-import { alertSuccess } from '@/utils/callAlert';
+import { alertError, alertSuccess } from '@/utils/callAlert';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -71,10 +71,15 @@ export default function Transaction() {
     
     try {
       const response = await TransaksiApi().createDraftTransaksi(payload);
-      alertSuccess('Transaction Success');
-      router.push('/user/transaksi');
+      console.log(response);
+      if (response.status) {
+        alertSuccess('Transaction Created');
+        router.push('/user/sertifikat');
+      }else{
+        alertError('Transaction Failed');
+      }
     } catch (error) {
-      alert('Transaction Failed');
+      alertError('Transaction Failed');
     }
   };
 
