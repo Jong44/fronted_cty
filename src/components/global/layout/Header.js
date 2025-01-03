@@ -27,7 +27,7 @@ const Index = () => {
       </div>
       <div className='flex items-center gap-6'>
         <Image src='/assets/icons/Doorbell.svg' alt="bell" width={30} height={30} className='cursor-pointer' onClick={handleNotification} />
-        <p className='text-lg font-bold'>Raina Aqila</p>
+        <p className='text-lg font-bold'>User</p>
         <div className='w-14 h-14 rounded-full'>
           <Image src="/assets/icons/profile.jpg" alt="logo" width={120} height={120} className='rounded-full' />
         </div>

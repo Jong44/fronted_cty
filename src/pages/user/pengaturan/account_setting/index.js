@@ -2,31 +2,30 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import RootLayout from "@/components/global/layout/RootLayout";
-import { UserApi, updateUser, getUserByUid } from "@/services/user";
+import { UserApi, updateUser, get } from "@/services/user";
 
 const AccountSetting = () => {
   const router = useRouter();
-  
+  const { uid } = router.query; // Fetch dynamic UID from the query params
   const [userData, setUserData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     address: "",
     phoneNumber: "",
   });
-  const [uid, setUid] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { getUserByUid, updateUser  } = UserApi();
-  
+
   useEffect(() => {
-    const uid = localStorage.getItem('uid');
-    setUid(uid)
     if (!uid) return; // Avoid fetching if UID is not yet available
     const fetchUserData = async () => {
       try {
         const data = await getUserByUid(uid);
         setUserData(data || {
-          name: "",
+          firstName: "",
+          lastName: "",
           email: "",
           address: "",
           phoneNumber: "",
