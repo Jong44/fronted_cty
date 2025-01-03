@@ -18,7 +18,7 @@ export const CheckTransactionProvider = ({ children }) => {
 const hapusTransaksi = async (id) => {
     try {
         const response = await TransaksiApi().deleteTransaksi(id);
-        if (response.status === 200) {
+        if (response.status) {
             Swal.fire("Berhasil!", "Transaksi berhasil dihapus", "success");
         } else {
             Swal.fire("Gagal!", "Transaksi gagal dihapus", "error");
@@ -29,13 +29,14 @@ const hapusTransaksi = async (id) => {
 };
     
 
-const createTransaksi = async (data) => {
+const createTransaksi = async (data, id) => {
     try {
         const response = await TransaksiApi().createTransaksi(data);
         console.log("transaksi", response);
-        if (response.status === 201) {
+        if (response.status) {
             Swal.fire("Berhasil!", "Transaksi berhasil dilanjutkan", "success");
-            hapusTransaksi(transaction[0].transaksi_id);
+            console.log("transaksi", response);
+            hapusTransaksi(id);
         }
         else {
             Swal.fire("Gagal!", "Transaksi gagal dilanjutkan", "error");
@@ -50,7 +51,6 @@ const checkTransaction = async (email, uid) => {
     try {
         const response = await TransaksiApi().getDraftTransaksiByUid(email);
         setTransaction(response.data);
-        console.log(response.data);
         const data = response.data ? response.data[0] : null;
 
         // Logika untuk menampilkan alert hanya jika belum pernah muncul
@@ -68,7 +68,7 @@ const checkTransaction = async (email, uid) => {
                         uuid: uid,
                     };
                     console.log(payload);
-                    createTransaksi(payload);
+                    createTransaksi(payload, id);
                 } else {
                     alertConfirm("Apakah anda yakin ingin menghapus transaksi ini?").then((result) => {
                         if (result.isConfirmed) {
