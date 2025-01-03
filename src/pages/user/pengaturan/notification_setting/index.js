@@ -18,12 +18,7 @@ const NotificationSetting = () => {
               Desktop Notification
             </span>
             <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={desktopNotification}
-                onChange={() => setDesktopNotification(!desktopNotification)}
-                className="sr-only peer"
-              />
+             
               <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-500"></div>
               <div
                 className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-5"
@@ -33,12 +28,7 @@ const NotificationSetting = () => {
           <div className="flex items-center justify-between">
             <span className="font-medium text-gray-800">Email Notification</span>
             <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={emailNotification}
-                onChange={() => setEmailNotification(!emailNotification)}
-                className="sr-only peer"
-              />
+
               <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-500"></div>
               <div
                 className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-5"
