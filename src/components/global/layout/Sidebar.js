@@ -20,6 +20,12 @@ const Index = () => {
       link: "/user/pengajuan",
     },
     {
+      id: 3,
+      title: "Transaksi",
+      icon: "Transaction.svg",
+      link: "/user/transaksi",
+    },
+    {
       id: 4,
       title: "Sertifikat",
       icon: "Cheque.svg",
