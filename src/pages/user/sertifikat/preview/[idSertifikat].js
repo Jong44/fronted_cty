@@ -13,11 +13,13 @@ const PreviewSertifikat = () => {
     pemegang_hak: '',
     catatan_pendaftaran: '',
   });
+  const [fileSertifikat, setFileSertifikat] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const fetchSertifikat = async () => {
     const data = await SertifikatApi().getSertifikatByHash(idSertifikat);
     setSertifikat(data?.data?.data_decrypted);
-    console.log(data);
+    setFileSertifikat(data?.data?.data_decrypted?.file_sertifikat);
   };
 
   const handleTransferPage = () => {
@@ -43,7 +45,13 @@ const PreviewSertifikat = () => {
     alert('Sertifikat telah dihapus'); // Anda bisa mengganti ini dengan logika penghapusan yang sesuai
   };
 
+  const decryptURL = (encryptedData, iv) => {
+      const url = SertifikatApi().decryptURL(encryptedData, iv);
+      return url;
+    };
+
   // 1) Renaldi Wicaksono, Rembang, 07 Januari 2004, 2) Tabitha Fatmati, Rembang, 02 Agustus 2004
+
 
   return (
     <RootLayout>
@@ -57,7 +65,7 @@ const PreviewSertifikat = () => {
                 <h2 className="text-lg font-bold mb-4">Sertifikat</h2>
                 <div className="border border-gray-300 rounded-lg">
                   <img
-                    src="/assets/icons/sertifikat1.png" // Path gambar
+                    src={ decryptURL(fileSertifikat.data, fileSertifikat.iv) }
                     alt="Gambar Bidang Tanah"
                     className="w-full h-full object-cover rounded-lg"
                   />
@@ -112,13 +120,6 @@ const PreviewSertifikat = () => {
                   {/* spilit pemegang hak '1) 2)' */}
                   <p>{sertifikat?.sertifikat?.pemegangHak}</p>
 
-                </div>
-              </div>
-              <div className="break-words">
-                <h2 className="text-lg font-bold mb-4">Catatan Pendaftaran</h2>
-                <div className="border border-gray-300 p-4 rounded-lg">
-                  <p>1. Pemisahan dari bidang Hak Milik Nomor 123456789 Desa Randusari, Kecamatan Semarang Barat,Kabupaten Semarang Provinsi Jawa Tengah</p>
-                  <p>2. Jual Beli berdasarkan Akta Jual Beli Nomor 123456789 Tanggal 30 November 20XX</p>
                 </div>
               </div>
               <button className="mt-6 ml-10 w-2/5 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center" onClick={handleTransferPage}>
