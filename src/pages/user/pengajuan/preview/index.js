@@ -59,7 +59,7 @@ const PengajuanPreview = () => {
               router.push('/user/pengajuan');
             }
           } catch (error) {
-            alertError(`Terjadi kesalahan: ${error.message}`); console.error(error)
+            alertError(`Terjadi kesalahan: disini`, console.error(error));
           }
         }
       };

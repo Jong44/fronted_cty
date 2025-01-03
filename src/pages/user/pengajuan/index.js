@@ -24,6 +24,7 @@ const Pengajuan = () => {
   const [uuid, setUuid] = useState('')
 
   useEffect(() => {
+    console.log("disini")
       const uid = localStorage.getItem('uid');
       if(uid){
           setUuid(uid);
@@ -45,39 +46,88 @@ const Pengajuan = () => {
   })
 
 
-      const handleSubmit = async (values, {setSubmitting}) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const result = await alertConfirm('Apakah Anda yakin ingin mengirim data ini?');
+    if (result.isConfirmed) {
+      try {
+        console.log('Mengirim notifikasi...')
+        const formDatas = new FormData();
+        formDatas.append('nama', values.name);
+        formDatas.append('email', values.email);
+        formDatas.append('no_hp', values.notelp);
+        formDatas.append('alamat', values.alm);
+        formDatas.append('nik', values.nik);
+        formDatas.append('sertifikat', formData.sertif);
+        formDatas.append('ktp', formData.ktp);
+        formDatas.append('uuid', uuid);
   
-          const result = await alertConfirm('Apakah Anda yakin ingin mengirim data ini?');
-          if (result.isConfirmed) {
-            try {
-              const formDatas = new FormData();
-              formDatas.append('nama', values.name);
-              formDatas.append('email', values.email);
-              formDatas.append('no_hp', values.notelp);
-              formDatas.append('alamat', values.alm);
-              formDatas.append('nik', values.nik);
-              formDatas.append('sertifikat', formData.sertif);
-              formDatas.append('ktp', formData.ktp);
-              formDatas.append('uuid',uuid);
+        const response = await submitPengajuan(formDatas);
   
-              const response = await submitPengajuan(formDatas);
-      
-              if (response.success) {
-                alertSuccess('Pengajuan berhasil!');
-                await sendNotificationToUser(uuid, 'Pengajuan Berhasil' , 'Sertifikat Anda berhasil dibuat.');
-                router.push('/user/dashboard');
-              } else {
-                alertError(response.message || 'Pengajuan gagal!');
-                await sendNotificationToUser(uuid, 'Pengajuan Gagal', response.message || 'Terjadi kesalahan saat memproses pengajuan.');
-                router.push('/user/pengajuan');
-              }
-            } catch (error) {
-              alertError(`Terjadi kesalahan: ${error.message}`); 
-              console.error(error);
-              await sendNotificationToUser(uuid, 'Pengajuan Error', `Terjadi kesalahan: ${error.message}`);
-            }
-          }
-        };
+        if (response.success) {
+          alertSuccess('Pengajuan berhasil!');
+          await sendNotificationToUser(uuid, 'Pengajuan Berhasil', 'Sertifikat Anda berhasil dibuat.');
+          router.push('/user/dashboard');
+        } else {
+          alertError(`Pengajuan gagal: ${response.message || 'Terjadi kesalahan saat memproses pengajuan.'}`);
+          await sendNotificationToUser(uuid, 'Pengajuan Gagal', response.message || 'Terjadi kesalahan saat memproses pengajuan.');
+        }
+        console.log('Notifikasi Berhasil Dikirim')
+      } catch (error) {
+        const errorMessage = error.message || error || 'Kesalahan tidak diketahui';
+        alertError(`Terjadi kesalahan: ${errorMessage}`);
+        console.error('Detail error:', error);
+        await sendNotificationToUser(uuid, 'Pengajuan Error', `Terjadi kesalahan: ${errorMessage}`);
+      }
+      setSubmitting(false);
+    }
+  };
+  
+
+
+      // const handleSubmit = async (values, {setSubmitting}) => {
+  
+      //     const result = await alertConfirm('Apakah Anda yakin ingin mengirim data ini?');
+      //     if (result.isConfirmed) {
+      //       try {
+      //         const formDatas = new FormData();
+      //         formDatas.append('nama', values.name);
+      //         formDatas.append('email', values.email);
+      //         formDatas.append('no_hp', values.notelp);
+      //         formDatas.append('alamat', values.alm);
+      //         formDatas.append('nik', values.nik);
+      //         formDatas.append('sertifikat', formData.sertif);
+      //         formDatas.append('ktp', formData.ktp);
+      //         formDatas.append('uuid',uuid);
+      //         // throw Error("test")
+      //         const response = await submitPengajuan(formDatas);
+      //         console.log("submit redsponse", response)
+      //         if (response.success) {
+                
+      //           alertSuccess('Pengajuan berhasil!');
+      //           // await sendNotificationToUser(uuid, 'Pengajuan Berhasil' , 'Sertifikat Anda berhasil dibuat.');
+      //           //router.push('/user/dashboard');
+      //         } 
+      //         else {
+      //           // alertError(`Pengajuan gagal!`, console.error(error));
+      //           console.error(response)
+      //           alertError(`Pengajuan gagal! ${response.message}`, );
+      //           console.log(response)
+      //           // await sendNotificationToUser(uuid, 'Pengajuan Gagal', response || 'Terjadi kesalahan saat memproses pengajuan.');
+      //           // router.push('/user/pengajuan');
+      //         }
+      //       } catch (error) {
+      //         // const errorMessage = error?.message || 'Kesalahan tidak diketahui'; // Pastikan pesan error selalu ada
+      //         alertError(`Terjadi kesalahan: ${error.message}`); 
+      //         // console.error('Detail error:', error); // Tampilkan detail error untuk debugging
+      //         // await sendNotificationToUser(uuid, 'Pengajuan Error', `Terjadi kesalahan: ${errorMessage}`);
+      //       }
+      //       // catch (error) {
+      //       //   alertError(`Terjadi kesalahan: ${error.message}`); 
+      //       //   console.error(error);
+      //       //   await sendNotificationToUser(uuid, 'Pengajuan Error', `Terjadi kesalahan: ${error.message}`);
+      //       // }
+      //     }
+      //   };
 
         const handleFileChange = (e) => {
           const file = e.target.files[0];
