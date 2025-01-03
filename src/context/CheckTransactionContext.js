@@ -18,7 +18,7 @@ export const CheckTransactionProvider = ({ children }) => {
 const hapusTransaksi = async (id) => {
     try {
         const response = await TransaksiApi().deleteTransaksi(id);
-        if (response.status === 201) {
+        if (response.status === 200) {
             Swal.fire("Berhasil!", "Transaksi berhasil dihapus", "success");
         } else {
             Swal.fire("Gagal!", "Transaksi gagal dihapus", "error");
@@ -32,7 +32,7 @@ const hapusTransaksi = async (id) => {
 const createTransaksi = async (data) => {
     try {
         const response = await TransaksiApi().createTransaksi(data);
-        console.log(response);
+        console.log("transaksi", response);
         if (response.status === 201) {
             Swal.fire("Berhasil!", "Transaksi berhasil dilanjutkan", "success");
             hapusTransaksi(transaction[0].transaksi_id);
