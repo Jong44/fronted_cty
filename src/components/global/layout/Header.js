@@ -7,6 +7,19 @@ const Index = () => {
   const handleNotification = () => {
     router.push('/user/notifikasi')
   }
+  
+  const handleUser  = async () => {
+    const uid = getCurrentUser;
+    try {
+      const response = await axios.put(`updateUser /${uid}`, {
+      });
+      console.log('User  updated:', response.data);
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
+
   return (
     <header className="shadow-md p-4 fixed top-0 left-0 w-full bg-white z-10 flex justify-between items-center">
       <div>

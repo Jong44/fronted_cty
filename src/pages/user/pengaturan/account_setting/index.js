@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
+import UserApi from '@/services/user/index'
 
 const AccountSetting = () => {
   return (
@@ -71,8 +72,12 @@ const AccountSetting = () => {
               </div>
             </div>
             <div className="mt-6 flex gap-4">
+              <Link href={`/posts/edit/${post.id}`}>
               <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">Update</button>
+              </Link>
+              <Link href={`/posts/edit/${post.id}`}>
               <button className="px-4 py-2 bg-red-500 text-black-700 rounded-md text-sm hover:bg-red-600">Cancel</button>
+              </Link>
             </div>
           </main>
         </div>
