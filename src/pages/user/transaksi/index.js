@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import RootLayout from '@/components/global/layout/RootLayout'
 
 const Transaksi = () => {
   return (
     <RootLayout>
       <div className="flex space-x-4 h-[35rem] overflow-y-auto">
-
         {/* Flex 1 */}
         <div className="flex-1 h-full">
           <div className="shadow-md rounded-md bg-white w-full max-w-[70rem] p-4">

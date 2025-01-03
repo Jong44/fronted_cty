@@ -37,8 +37,8 @@ const Sertifikat = () => {
   }
 
   // Fungsi untuk handle onClick navigasi
-  const handleCardClick = () => {
-    router.push('/user/sertifikat/preview/d8748acb5070ca245697ff5205fb98e59c202b3915bf7829932709f9ac297616');
+  const handleCardClick = (id) => {
+    router.push(`/user/sertifikat/preview/${id}`);
   }
 
   return (
@@ -91,7 +91,7 @@ const Sertifikat = () => {
             ))
           ) : (
             dataSertifikat?.map((item, index) => (
-              <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl" onClick={handleCardClick}>
+              <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl" onClick={handleCardClick.bind(this, item.hash)}>
                 <div className="w-full h-40 relative">
                   <Image
                     src={decryptURL(item.data_decrypted.file_sertifikat?.data, item.data_decrypted.file_sertifikat?.iv)}

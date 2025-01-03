@@ -33,6 +33,7 @@ const Login = () => {
       } else {
         const uid = data.user.id
         localStorage.setItem('uid', uid)
+        localStorage.setItem('email', email)
         alertSuccess('Login berhasil!')
         router.push('/user/dashboard')
       }

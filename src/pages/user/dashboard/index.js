@@ -69,23 +69,19 @@ const Dashboard = () => {
                   Array.from({ length: 3 }).map((_, i) => (
                     <tr key={i}>
                       <td className='border px-4 py-2'><Skeleton height={30} /> </td>
-                      <td className='border px-4 py-2'>Shazia</td>
-                      <td className='border px-4 py-2'>Sertifikat Tanah</td>
-                      <td className='border px-4 py-2'>06-12-2024</td>
-                      <td className='border px-4 py-2'>Verified</td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
+                      <td className='border px-4 py-2'><Skeleton height={30} /></td>
                     </tr>
                   ))
                 ) : (
-                  dataListSertifikat.length < 0 ? (
+                  dataListSertifikat?.length < 0 ? (
                     <tr key={index}>
-                    <td className='border px-4 py-2'><Skeleton height={30} /> </td>
-                    <td className='border px-4 py-2'>Shazia</td>
-                    <td className='border px-4 py-2'>Sertifikat Tanah</td>
-                    <td className='border px-4 py-2'>06-12-2024</td>
-                    <td className='border px-4 py-2'>Verified</td>
+                      <td className='border px-4 py-2' colSpan='5'>Data Kosong</td>
                   </tr>
                   ) : (
-                    dataListSertifikat.map((item, index) =>(
+                    dataListSertifikat?.map((item, index) =>(
                       <tr key={index}>
                       <td className='border px-4 py-2'>{index +1}</td>
                       <td className='border px-4 py-2'>{item.data_decrypted.nama}</td>

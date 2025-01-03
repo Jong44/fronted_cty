@@ -23,6 +23,7 @@ export const SertifikatApi = () => {
         }
     }
     const decryptURL = (encryptedData, iv) => {
+        if (!encryptedData || !iv) return null
         const key = CryptoJS.enc.Hex.parse(process.env.NEXT_PUBLIC_ENCRYPT_KEY); // Kunci harus sama dengan backend
         const ivParsed = CryptoJS.enc.Hex.parse(iv);
     

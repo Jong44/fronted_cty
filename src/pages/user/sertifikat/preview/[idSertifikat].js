@@ -5,7 +5,6 @@ import { SertifikatApi } from '@/services/sertifikat';
 
 const PreviewSertifikat = () => {
   const router = useRouter();
-
   const { idSertifikat } = router.query;
   const [sertifikat, setSertifikat] = useState({
     nama: '',
@@ -17,8 +16,13 @@ const PreviewSertifikat = () => {
 
   const fetchSertifikat = async () => {
     const data = await SertifikatApi().getSertifikatByHash(idSertifikat);
-    setSertifikat(data.data.data_decrypted);
+    setSertifikat(data?.data?.data_decrypted);
+    console.log(data);
   };
+
+  const handleTransferPage = () => {
+    router.push(`/user/transaksi/form/${idSertifikat}`);
+  }
 
   useEffect(() => {
     if (idSertifikat) {
@@ -117,7 +121,7 @@ const PreviewSertifikat = () => {
                   <p>2. Jual Beli berdasarkan Akta Jual Beli Nomor 123456789 Tanggal 30 November 20XX</p>
                 </div>
               </div>
-              <button className="mt-6 ml-10 w-2/5 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center">
+              <button className="mt-6 ml-10 w-2/5 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center" onClick={handleTransferPage}>
                 Transfer
               </button>
             </div>
