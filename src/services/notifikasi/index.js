@@ -34,9 +34,9 @@ export const NotifikasiApi = () => {
     }
   };
 
-  const sendNotificationToUser = async (uid, title, message) => {
+  const sendNotificationToUser = async (title, message) => {
     try {
-      const ress = await axios.post(`${url}/${uid}`, { uid, title, message });
+      const ress = await axios.post(`${url}`, { title, message });
       return ress?.data || {};
     } catch (err) {
       console.log(err);
