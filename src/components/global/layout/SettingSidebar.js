@@ -58,15 +58,17 @@ const Index = () => {
           </Link>
         ))}
       </div>
+      <Link href={'/auth/logout'}>
       <div className="flex items-center gap-3 px-5 py-4 bg-primary cursor-pointer hover:bg-red-500">
-        <Image
-          src="/assets/icons/logout.svg"
-          alt="Logout Icon"
-          width={20}
-          height={20}
-        />
+          <Image
+            src="/assets/icons/logout.svg"
+            alt="Logout Icon"
+            width={20}
+            height={20}
+          />
         <span >Keluar</span>
       </div>
+      </Link>
     </aside>
   )
 }
