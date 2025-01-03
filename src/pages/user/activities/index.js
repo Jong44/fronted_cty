@@ -9,8 +9,9 @@ const Activities = () => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchAktivitas = async () => {
+            const uid = localStorage.getItem('uid');
             setLoading(true);
-            const data = await AktivitasApi().getAktivitasByUid("239181d2-1724-4aa3-9224-949912e8f2f3");
+            const data = await AktivitasApi().getAktivitasByUid(uid);
             setDataAktivitas(data.data);
             setLoading(false);
         };

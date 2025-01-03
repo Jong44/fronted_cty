@@ -1,6 +1,7 @@
+import { AktivitasApi } from "@/services/aktivitas";
 import { TransaksiApi } from "@/services/transaksi";
 import { alertConfirm } from "@/utils/callAlert";
-import axios from "axios";
+
 import Swal from "sweetalert2";
 
 const { createContext, useEffect, useState } = require("react");
@@ -10,7 +11,6 @@ const CheckTransactionContext = createContext();
 export const CheckTransactionProvider = ({ children }) => {
     const [transaction, setTransaction] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [uid, setUid] = useState(null);
 
     const [isAlertShown, setIsAlertShown] = useState(false); // State untuk melacak apakah alert sudah muncul
 
@@ -27,6 +27,25 @@ const hapusTransaksi = async (id) => {
         console.log(error);
     }
 };
+
+const createdActivity = async (status) => {
+    try {
+        const uid = localStorage.getItem("uid");
+        const payload = {
+            status: status,
+            activity_type: "transfer",
+            detail: "Menerima transaksi transfer sertifikat",
+            uuid: uid
+        };
+
+        const   response = await AktivitasApi().createdActivity(payload);
+        console.log(response);
+
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+}
     
 
 const createTransaksi = async (data, id) => {
@@ -34,12 +53,13 @@ const createTransaksi = async (data, id) => {
         const response = await TransaksiApi().createTransaksi(data);
         console.log("transaksi", response);
         if (response.status) {
+            createdActivity("success");
             Swal.fire("Berhasil!", "Transaksi berhasil dilanjutkan", "success");
             console.log("transaksi", response);
-            hapusTransaksi(id);
         }
         else {
             Swal.fire("Gagal!", "Transaksi gagal dilanjutkan", "error");
+            hapusTransaksi(id);
         }
     } catch (error) {
         console.log(error);
@@ -68,7 +88,7 @@ const checkTransaction = async (email, uid) => {
                         uuid: uid,
                     };
                     console.log(payload);
-                    createTransaksi(payload, id);
+                    createTransaksi(payload, response.data[0].transaksi_id);
                 } else {
                     alertConfirm("Apakah anda yakin ingin menghapus transaksi ini?").then((result) => {
                         if (result.isConfirmed) {
@@ -93,7 +113,7 @@ useEffect(() => {
         checkTransaction(email, uid);
 
         const interval = setInterval(() => {
-            checkTransaction(email);
+            checkTransaction(email, uid);
         }, 5000);
 
         return () => clearInterval(interval);

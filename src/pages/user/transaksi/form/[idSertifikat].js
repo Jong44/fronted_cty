@@ -9,6 +9,7 @@ export default function Transaction() {
   const router = useRouter();
   const { idSertifikat } = router.query;
   const [sertifikat, setSertifikat] = useState({});
+  const [fingerPrint, setFingerPrint] = useState('');
   const [loading, setLoading] = useState(true);
 
   const fetchSertifikat = async () => {
@@ -21,6 +22,7 @@ export default function Transaction() {
       originalOwnerName: data.data.data_decrypted.nama,
       originalOwnerAddress: data.data.data_decrypted.alamat
     })
+    setFingerPrint(data.data.fingerprint);
     setLoading(false);
 
   };
@@ -28,7 +30,6 @@ export default function Transaction() {
   useEffect(() => {
     if (idSertifikat) {
       fetchSertifikat();
-      console.log(sertifikat);
     }
     
     
@@ -64,7 +65,7 @@ export default function Transaction() {
       email: formData.recipientEmail,
       nik: formData.recipientNIK,
       alamat: formData.recipientAddress,
-      fingerprintSertificate: idSertifikat,
+      fingerprintSertificate: fingerPrint,
       uuid_pengirim: uid,
       transferType: formData.transferType
     }
