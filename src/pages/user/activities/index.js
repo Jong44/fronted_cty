@@ -54,9 +54,9 @@ const Activities = () => {
                                 dataAktivitas.map((item, index) => (
                                     <tr>
                                         <td className="px-3 py-2 text-center border-r">{index + 1}</td>
+                                        <td className="px-3 py-2 text-center border-r">{formatDate(item.created_at)}</td>
                                         <td className="px-3 py-2 text-center border-r">{item.detail}</td>
                                         <td className="px-3 py-2 text-center border-r">{item.activity_type}</td>
-                                        <td className="px-3 py-2 text-center border-r">{formatDate(item.created_at)}</td>
                                         <td className="px-3 py-2 text-center border-r">{item.status}</td>
                                     </tr>
                                 ))
