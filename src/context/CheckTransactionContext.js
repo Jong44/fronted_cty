@@ -56,6 +56,7 @@ const createTransaksi = async (data, id) => {
             createdActivity("success");
             Swal.fire("Berhasil!", "Transaksi berhasil dilanjutkan", "success");
             console.log("transaksi", response);
+            hapusTransaksi(id);
         }
         else {
             Swal.fire("Gagal!", "Transaksi gagal dilanjutkan", "error");
